@@ -1,0 +1,386 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0027)http://itzoo.info/love.html -->
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Love</title>
+        
+        <link type="text/css" rel="stylesheet" href="./Love_files/default.css">
+        <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
+        <script type="text/javascript" src="./Love_files/jscex.min.js"></script>
+        <script type="text/javascript" src="./Love_files/jscex-parser.js"></script>
+        <script type="text/javascript" src="./Love_files/jscex-jit.js"></script>
+        <script type="text/javascript" src="./Love_files/jscex-builderbase.min.js"></script>
+        <script type="text/javascript" src="./Love_files/jscex-async.min.js"></script>
+        <script type="text/javascript" src="./Love_files/jscex-async-powerpack.min.js"></script>
+        <script type="text/javascript" src="./Love_files/functions.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./Love_files/love.js" charset="utf-8"></script>
+		<script type="text/javascript" src="./Love_files/three.min.js" charset="utf-8"></script>
+		<style>
+			.hidden{display:none;}
+		</style>
+    </head>
+    <body>
+        <div id="main">
+            <div id="error">亲，您使用的浏览器无法支持即将显示的内容，请换成谷歌(<a href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI">Chrome</a>)或者火狐(<a href="http://firefox.com.cn/download/">Firefox</a>)浏览器哟~</div>
+            <div id="wrap">
+               <div id="text">
+                    <div id="code">
+                    <span class="say">Hi，请问是张晶晶童鞋吗？.</span><br>
+                    <span class="say">是哦~</span><br>
+                    <span class="say">你在干吗哦？</span><br>
+                    <span class="say">刚和小七吃完晚饭，准备回去，一个人在公交车上...</span><br>
+                    <span class="say">这么晚了，一个人坐车注意安全.</span><br>
+                    <span class="say">谢谢~以后我不要一个人公车回家~</span><br>
+					<span class="say">好滴，以后我天天陪你一起回家~</span><br>
+                    <span class="say">...</span><br><br><br>
+                    <span class="say">谢谢你走进我的世界，也让我走入你的世界。</span><br>
+					<span class="say"><a href="../LoveStory/index.html" >You can click me for our Love Story</a></span><br>
+                    <span class="say"><span class="space"></span> -- Yours, XiaoQiuJie.</span><br>
+					
+                    </div>
+                </div>
+                <div id="clock-box">
+                    <a href="http://weibo.com/u/2459242834/" target="_blank">@小秋爱搜索</a> 与 <a href="http://weibo.com/u/2710195843" target="_blank">@小晶爱学习</a> 在一起的
+                        <div id="clock"></div>
+                </div>
+                <canvas id="canvas" width="1100" height="680"></canvas>
+            </div>
+            <audio src="Love_files/When You Say Nothing At All.mp3" autoplay="autoplay"></audio>
+        </div>
+    
+    <script>
+    </script>
+
+    <script>
+	
+    (function(){
+        var canvas = $('#canvas');
+
+        if (!canvas[0].getContext) {
+            $("#error").show();
+            return false;
+        }
+
+        var width = canvas.width();
+        var height = canvas.height();
+        
+        canvas.attr("width", width);
+        canvas.attr("height", height);
+
+        var opts = {
+            seed: {
+                x: width / 2 - 20,
+                color: "rgb(190, 26, 37)",
+                scale: 2
+            },
+            branch: [
+                [535, 680, 570, 250, 500, 200, 30, 100, [
+                    [540, 500, 455, 417, 340, 400, 13, 100, [
+                        [450, 435, 434, 430, 394, 395, 2, 40]
+                    ]],
+                    [550, 445, 600, 356, 680, 345, 12, 100, [
+                        [578, 400, 648, 409, 661, 426, 3, 80]
+                    ]],
+                    [539, 281, 537, 248, 534, 217, 3, 40],
+                    [546, 397, 413, 247, 328, 244, 9, 80, [
+                        [427, 286, 383, 253, 371, 205, 2, 40],
+                        [498, 345, 435, 315, 395, 330, 4, 60]
+                    ]],
+                    [546, 357, 608, 252, 678, 221, 6, 100, [
+                        [590, 293, 646, 277, 648, 271, 2, 80]
+                    ]]
+                ]] 
+            ],
+            bloom: {
+                num: 700,
+                width: 1080,
+                height: 650,
+            },
+            footer: {
+                width: 1200,
+                height: 5,
+                speed: 10,
+            }
+        }
+
+        var tree = new Tree(canvas[0], width, height, opts);
+        var seed = tree.seed;
+        var foot = tree.footer;
+        var hold = 1;
+
+        canvas.click(function(e) {
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            if (seed.hover(x, y)) {
+                hold = 0; 
+                canvas.unbind("click");
+                canvas.unbind("mousemove");
+                canvas.removeClass('hand');
+            }
+        }).mousemove(function(e){
+            var offset = canvas.offset(), x, y;
+            x = e.pageX - offset.left;
+            y = e.pageY - offset.top;
+            canvas.toggleClass('hand', seed.hover(x, y));
+        });
+
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) {
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canScale()) {
+                seed.scale(0.95);
+                $await(Jscex.Async.sleep(10));
+            }
+            while (seed.canMove()) {
+                seed.move(0, 2);
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
+        }));
+
+        var growAnimate = eval(Jscex.compile("async", function () {
+            do {
+                tree.grow();
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canGrow());
+        }));
+
+        var flowAnimate = eval(Jscex.compile("async", function () {
+            do {
+                tree.flower(2);
+                $await(Jscex.Async.sleep(10));
+            } while (tree.canFlower());
+        }));
+
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, 680);
+            while (tree.move("p1", 500, 0)) {
+                foot.draw();
+                $await(Jscex.Async.sleep(10));
+            }
+            foot.draw();
+            tree.snapshot("p2", 500, 0, 610, 680);
+
+            // 会有闪烁不得意这样做, (＞﹏＜)
+            canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+            canvas.css("background", "#ffe");
+            $await(Jscex.Async.sleep(300));
+            canvas.css("background", "none");
+        }));
+
+        var jumpAnimate = eval(Jscex.compile("async", function () {
+            var ctx = tree.ctx;
+            while (true) {
+                tree.ctx.clearRect(0, 0, width, height);
+                tree.jump();
+                foot.draw();
+                $await(Jscex.Async.sleep(25));
+            }
+        }));
+
+        var textAnimate = eval(Jscex.compile("async", function () {
+            var together = new Date();
+            together.setFullYear(2012, 6, 2);
+            together.setHours(20);
+            together.setMinutes(20);
+            together.setSeconds(0);
+            together.setMilliseconds(0);
+
+            $("#code").show().typewriter();
+            $("#clock-box").fadeIn(500);
+            while (true) {
+                timeElapse(together);
+                $await(Jscex.Async.sleep(1000));
+            }
+        }));
+
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate());
+            $await(growAnimate());
+            $await(flowAnimate());
+            $await(moveAnimate());
+
+            textAnimate().start();
+
+            $await(jumpAnimate());
+        }));
+
+        runAsync().start();
+    })();
+    </script>
+
+	<script>
+		  var container, stats;
+		  var camera, scene, renderer, group, particle;
+		  var mouseX = 0, mouseY = 0;
+
+		  var windowHalfX = window.innerWidth / 2;
+		  var windowHalfY = window.innerHeight / 2;
+
+		  pinit();
+		  animate();
+
+		  function pinit() {
+			container = document.createElement( 'div' );
+			document.body.appendChild( container );
+			$(container).css({
+			  position:"fixed",
+			  top:0,
+			  background:"#000",
+			  opacity:0.7,
+			  zIndex:10000
+			  });
+			$(container).on("click",function(){
+			  $(container).addClass("hidden")
+			  isStop = 0;
+			  });
+			camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 3000 );
+			camera.position.z = 1000;
+			camera.position.y = 500;
+
+			scene = new THREE.Scene();
+
+			var PI2 = Math.PI * 2;
+			var program = function ( context ) {
+
+			  context.beginPath();
+			  context.arc( 0, 0, 0.5, 0, PI2, true );
+			  context.fill();
+
+			}
+
+			group = new THREE.Object3D();
+			scene.add( group );
+			var color_c = 0;
+			for ( var i = 0; i < 1300; i++ ) {
+			  var color = 0x0e905d;
+			  var size = 5;
+			  if(i%10==0){
+				color =Math.random() * 0x808008 + 0x808080
+				size = 10;
+			  }
+			  if(i%30==0){
+				size = 15;
+			  }
+			  var material = new THREE.SpriteCanvasMaterial( {
+				color: color,
+				program: program
+			  } );
+
+			  particle = new THREE.Sprite( material );
+			  particle.position.x = Math.random() * 2000 - 1000;
+			  particle.position.y = Math.random() * 2000 - 1000;
+			  particle.position.z = Math.random() * 2000 - 1000;
+			  particle.scale.x = particle.scale.y = Math.random() * 3 + size;
+			  group.add( particle );
+			}
+
+			renderer = new THREE.CanvasRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			container.appendChild( renderer.domElement );
+
+
+
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			document.addEventListener( 'touchstart', onDocumentTouchStart, false );
+			document.addEventListener( 'touchmove', onDocumentTouchMove, false );
+
+			//
+
+			window.addEventListener( 'resize', onWindowResize, false );
+
+		  }
+
+		  function onWindowResize() {
+
+			windowHalfX = window.innerWidth / 2;
+			windowHalfY = window.innerHeight / 2;
+
+			camera.aspect = window.innerWidth / window.innerHeight;
+			camera.updateProjectionMatrix();
+
+			renderer.setSize( window.innerWidth, window.innerHeight );
+
+		  }
+
+		  //
+
+		  function onDocumentMouseMove( event ) {
+
+			mouseX = event.clientX - windowHalfX;
+			mouseY = event.clientY - windowHalfY;
+		  }
+
+		  function onDocumentTouchStart( event ) {
+
+			if ( event.touches.length === 1 ) {
+
+			  event.preventDefault();
+
+			  mouseX = event.touches[ 0 ].pageX - windowHalfX;
+			  mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+			}
+
+		  }
+
+		  function onDocumentTouchMove( event ) {
+
+			if ( event.touches.length === 1 ) {
+
+			  event.preventDefault();
+
+			  mouseX = event.touches[ 0 ].pageX - windowHalfX;
+			  mouseY = event.touches[ 0 ].pageY - windowHalfY;
+
+			}
+
+		  }
+
+		  var isStop = 0;
+		  function animate() {
+		  if(!isStop)
+			requestAnimationFrame( animate );
+
+			render();
+
+		  }
+		  var t= 0;
+		  var R = 400;
+		  var k = 20;
+		  var max = 60;
+		  var is_max = false;
+		  function render() {
+
+		 //这里的代码是关键
+		t+=0.4;
+		R = (max-t)*400/max
+
+		var childrens = group.children;
+		if(t>max) is_max=true;
+		else is_max = false;
+		for(var i=0;i<childrens.length;i++){
+		  var tt = t-i*0.05
+		  if(tt<0) tt = 0
+		  var RR = (max-tt)*400/max
+		  //这里是用来连续呈现的，可以让圣诞树不断节
+		  if(is_max&&tt>max) {
+			tt = tt%max;
+			RR =(max-tt)*400/max
+		  }
+		  //螺旋算法
+		  childrens[i].position.x=RR*Math.cos(tt);
+		  childrens[i].position.y=k*tt;
+		  childrens[i].position.z= RR*Math.sin(tt);
+		}
+
+
+		renderer.render( scene, camera );
+
+  }
+	</script>
+
+
+</body></html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <style type="text/css">
+    div.speech {
+        margin: 10px 0;
+        padding: 8px;
+        table-layout: fixed;
+        word-break: break-all;
+        position: relative;
+        background: -webkit-gradient( linear, 50% 0%, 50% 100%, from(#ffffff), color-stop(0.1, #ececec), color-stop(0.5, #dbdbdb), color-stop(0.9, #dcdcdc), to(#8c8c8c) );
+        border: 1px solid #989898;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        border-radius: 8px;
+    }
+    div.speech:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 15px;
+        top: -20px;
+        border: 10px solid;
+        border-color: transparent transparent #989898 transparent;
+    }
+    div.speech:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 17px;
+        top: -16px;
+        border: 8px solid;
+        border-color: transparent transparent #ffffff transparent;
+    }
+    div.speech.right {
+        box-shadow: -2px 2px 5px #CCC;
+        margin-right: 60px;
+        width: 75%;
+        float: right;
+        background: -webkit-gradient( linear, 50% 0%, 50% 100%, from(#e4ffa7), color-stop(0.1, #bced50), color-stop(0.4, #aed943), color-stop(0.8, #a7d143), to(#99BF40) );
+        position: absolute;
+        margin-top: 30px;
+        right: 60px;
+    }
+    div.speech.right:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 9px;
+        bottom: auto;
+        left: auto;
+        right: -10px;
+        border-width: 9px 0 9px 10px;
+        border-color: transparent #989898;
+    }
+    div.speech.right:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 10px;
+        bottom: auto;
+        left: auto;
+        right: -8px;
+        border-width: 8px 0 8px 9px;
+        border-color: transparent #bced50;
+    }
+    div.speech.left {
+        box-shadow: 2px 2px 2px #CCCCCC;
+        margin-left: 60px;
+        width: 75%;
+        float: left;
+        background: -webkit-gradient( linear, 50% 0%, 50% 100%, from(#ffffff), color-stop(0.1, #eae8e8), color-stop(0.4, #E3E3E3), color-stop(0.8, #DFDFDF), to(#D9D9D9) );
+        position: absolute;
+        margin-top: 30px;
+        left:60px;
+    }
+    div.speech.left:before {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 9px;
+        bottom: auto;
+        left: -10px;
+        border-width: 9px 10px 9px 0;
+        border-color: transparent #989898;
+    }
+    div.speech.left:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: 10px;
+        bottom: auto;
+        left: -8px;
+        border-width: 8px 9px 8px 0;
+        border-color: transparent #eae8e8;
+    }
+    .leftimg {
+        float: left;
+        margin-top: 10px;
+        border-radius: 30px;
+        box-shadow: 0 0 6px hsla(0,27%,42%,.5);
+        height: 50px;
+        width: 50px;
+    }
+    .rightimg {
+        float: right;
+        margin-top: 10px;
+        border-radius: 30px;
+        box-shadow: 0 0 6px hsla(0,27%,42%,.5);
+        height: 50px;
+        width: 50px;
+    }
+    .leftd {
+        clear: both;
+        float: left;
+        /*background: url(Love_files/images/left.jpg) 0px 10px no-repeat;*/
+        padding-left: 40px;
+        padding-top: 20px;
+    }
+    .rightd {
+        clear: both;
+        float: right;
+        /*background: url(Love_files/images/right.jpg) right 10px no-repeat;*/
+        padding-right: 40px;
+        padding-top: 20px;
+    }
+    .clear {
+        clear: both;
+    }
+
+</style>
+    <script type="text/javascript" src="./Love_files/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function(){
+
+        });
+    </script>
+</head>
+
+<body>
+<div class="leftd">
+    <img src="Love_files/images/1.jpg" class="leftimg"> <div class="speech left" > 你好!在晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会!晚上好晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会! </div>
+</div>
+<div class="rightd">
+    <img src="Love_files/images/0.jpg"  class="rightimg">
+    <div class="speech right" > 晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会!晚上好晚上好!我在!明天早上8点要开会!晚上好!我在!明天早上8点要开会! </div>
+</div>
+<div class="leftd">
+    <img src="Love_files/images/1.jpg"  class="leftimg"><div class="speech left"> 请把资料准备好! </div>
+    <div class="clear"></div>
+</div>
+<div class="rightd">
+    <img src="Love_files/images/0.jpg" class="rightimg"><div class="speech right"> 好的!</br>
+        没问题!</br>
+        搞定了 </div>
+    <div class="clear"></div>
+
+</div>
+</body>
+</html>
